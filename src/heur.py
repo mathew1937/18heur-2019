@@ -76,3 +76,9 @@ class Heuristic:
         :return: end result report
         """
         raise NotImplementedError("Heuristic must implement its own search function")
+
+    def reset(self):
+        self.best_y = np.inf
+        self.best_x = None
+        self.neval = 0
+        self.log_data = []

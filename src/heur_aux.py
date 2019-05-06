@@ -86,3 +86,19 @@ class CauchyMutation(Mutation):
             x_new = np.array(np.round(x_new), dtype=int)  # optional rounding
         x_new_corrected = self.correction.correct(x_new)
         return x_new_corrected
+		
+class BinaryMutation(Mutation):
+
+    def __init__(self, p, correction):
+        Mutation.__init__(self, correction)
+        self.p = p
+
+    def mutate(self, x):
+        n = np.size(x)
+        u = np.random.choice([0, 1], size=n, p=[1-self.p, self.p])
+        x_new = x.copy()
+        for i in np.arange(n):
+            if u[i] == 1:
+                x_new[i] = 1 - x_new[i]
+        x_new_corrected = self.correction.correct(x_new)
+        return x_new_corrected
